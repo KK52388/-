@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 #import hello.views as hello
 
+print('django_app_urlpatternsリスト定義')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', include('hello.urls')),

@@ -7,6 +7,8 @@ Created on Sun Feb 16 16:54:09 2020
 from django.conf.urls import url
 from .views import HelloView
 
+
+print('urls_urlpatternsリスト定義')
 urlpatterns = [
     url(r'', HelloView.as_view(), name='index'),
     

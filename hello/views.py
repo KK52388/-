@@ -24,6 +24,7 @@ class HelloView(TemplateView):
     try: 
         
         def __init__(self):
+            print('__init__処理')
             self.params = {
                     'title': 'Hello',
                     'message': 'your data:',
@@ -31,10 +32,13 @@ class HelloView(TemplateView):
                 }
         
         def get(self, request):
+            
+            print('get処理')
             return render(request, 'hello/index.html', self.params)
     
         def post(self, request):
             
+            print('post処理')
             msg = 'あなたは、<b>' + request.POST['name'] + \
                 '（' + request.POST['age'] + \
                 '）</b>さんです。<br>メールアドレスは <b>' + request.POST['mail'] + \
@@ -42,6 +46,12 @@ class HelloView(TemplateView):
             self.params['message'] = msg
             self.params['form'] = HelloForm(request.POST)
             return render(request, 'hello/index.html', self.params)
+    except ZeroDivisionError:
+        print('division by zero')
+    except NameError:
+        print('undefined name')
+    except Exception:
+        print('some exception!')
     except Exception as e:
         print(e)
         logger.debug(e)
