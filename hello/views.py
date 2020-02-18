@@ -21,31 +21,35 @@ logger = getLogger(__name__)
 #     return HttpResponse("日本一平凡なDjango")
 
 class HelloView(TemplateView):
-    
-    def __init__(self):
-        self.params = {
-                'title': 'Hello',
-                'message': 'your data:',
-                'form': HelloForm()
-            }
-    
-    def get(self, request):
-        return render(request, 'hello/index.html', self.params)
-
-    def post(self, request):
+    try: 
         
+        def __init__(self):
+            self.params = {
+                    'title': 'Hello',
+                    'message': 'your data:',
+                    'form': HelloForm()
+                }
+        
+        def get(self, request):
+            return render(request, 'hello/index.html', self.params)
+    
+        def post(self, request):
+            
+            msg = 'あなたは、<b>' + request.POST['name'] + \
+                '（' + request.POST['age'] + \
+                '）</b>さんです。<br>メールアドレスは <b>' + request.POST['mail'] + \
+                '</b> ですね。'
+            self.params['message'] = msg
+            self.params['form'] = HelloForm(request.POST)
+            return render(request, 'hello/index.html', self.params)
+    except Exception as e:
+        print(e)
+        logger.debug(e)
         logger.debug("デバッグ")
         logger.info("インフォ")
         logger.warning("ワーニング")
         logger.error("エラー")
         logger.critical("クリティカル")
-        msg = 'あなたは、<b>' + request.POST['name'] + \
-            '（' + request.POST['age'] + \
-            '）</b>さんです。<br>メールアドレスは <b>' + request.POST['mail'] + \
-            '</b> ですね。'
-        self.params['message'] = msg
-        self.params['form'] = HelloForm(request.POST)
-        return render(request, 'hello/index.html', self.params)
 
 
 # def index(request):
